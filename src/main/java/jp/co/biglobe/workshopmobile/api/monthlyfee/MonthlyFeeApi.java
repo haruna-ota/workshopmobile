@@ -1,5 +1,8 @@
 package jp.co.biglobe.workshopmobile.api.monthlyfee;
 
+import jp.co.biglobe.workshopmobile.domain.fee.OrderMonthlyTotalFee;
+import jp.co.biglobe.workshopmobile.domain.option.Option;
+import jp.co.biglobe.workshopmobile.domain.order.Order;
 import jp.co.biglobe.workshopmobile.domain.plan.Plan;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,11 +20,29 @@ public class MonthlyFeeApi {
     public Map invoke(
             Request request
     ) {
+        //プラン
+        Plan plan;
+        if (request.getPlan().equals(Request.PlanForm.g1)) {
+            plan = Plan._1ギガ;
+        } else if (request.getPlan().equals(Request.PlanForm.g3)) {
+            plan = Plan._3ギガ;
+        } else {
+            plan = Plan._30ギガ;
+        }
+
+        //オプション
+        Option option = request.isEntame_free() ? Option.エンタメフリー : Option.オプションなし;
+
+        //申込
+        Order order = new Order(plan, option);
+
+        //月額料金
+        int monthlyTotalFee = OrderMonthlyTotalFee.calc(order);
+
         Map<String, Object> res = new HashMap<>();
-        res.put("monthly_fee", Plan._1ギガ.getMonthlyFee().getValue() /* TODO 月額料金を返す */);
+        res.put("monthly_fee", monthlyTotalFee /* TODO 月額料金を返す */);
         return res;
     }
-
 
 
 }
