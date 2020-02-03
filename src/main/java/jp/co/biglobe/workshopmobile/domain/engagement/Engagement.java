@@ -16,7 +16,11 @@ public class Engagement {
 
     //エンタメの申込制限
     public boolean isEntameFreeOk(Plan plan) {
-        return !plan.equals(Plan._1ギガ);
+        if (!plan.equals(Plan._1ギガ)) {
+            return true;
+        } else {
+            throw new RuntimeException("エンタメフリーオプションを申し込めないプランです");
+        }
     }
 
     //プランの料金
@@ -25,8 +29,10 @@ public class Engagement {
             return PlanMonthlyFee._1ギガ;
         } else if (plan.equals(Plan._3ギガ)) {
             return PlanMonthlyFee._3ギガ;
-        } else {
+        } else if (plan.equals(Plan._30ギガ)) {
             return PlanMonthlyFee._30ギガ;
+        } else {
+            throw new RuntimeException("存在しないプラン料金です");
         }
     }
 

@@ -21,18 +21,23 @@ public class MonthlyFeeApi {
             Request request
     ) {
         //プラン
-        Plan plan;
-        if (request.getPlan().equals(Request.PlanForm.g1)) {
-            plan = Plan._1ギガ;
-        } else if (request.getPlan().equals(Request.PlanForm.g3)) {
-            plan = Plan._3ギガ;
-        } else {
-            plan = Plan._30ギガ;
+        Plan plan = null;
+        try {
+            if (request.getPlan().equals(Request.PlanForm.g1)) {
+                plan = Plan._1ギガ;
+            } else if (request.getPlan().equals(Request.PlanForm.g3)) {
+                plan = Plan._3ギガ;
+            } else if (request.getPlan().equals(Request.PlanForm.g30)) {
+                plan = Plan._30ギガ;
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("許容していないプランコードです");
         }
 
         //オプション
         Option option = request.isEntame_free() ? Option.エンタメフリー : Option.オプションなし;
 
+        
         //申込
         Engagement engagement = new Engagement(plan, option);
 
