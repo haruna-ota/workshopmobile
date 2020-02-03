@@ -2,7 +2,7 @@ package jp.co.biglobe.workshopmobile.api.monthlyfee;
 
 import jp.co.biglobe.workshopmobile.domain.fee.OrderMonthlyTotalFee;
 import jp.co.biglobe.workshopmobile.domain.option.Option;
-import jp.co.biglobe.workshopmobile.domain.order.Order;
+import jp.co.biglobe.workshopmobile.domain.engagement.Engagement;
 import jp.co.biglobe.workshopmobile.domain.plan.Plan;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,10 +34,10 @@ public class MonthlyFeeApi {
         Option option = request.isEntame_free() ? Option.エンタメフリー : Option.オプションなし;
 
         //申込
-        Order order = new Order(plan, option);
+        Engagement engagement = new Engagement(plan, option);
 
         //月額料金
-        int monthlyTotalFee = OrderMonthlyTotalFee.calc(order);
+        int monthlyTotalFee = OrderMonthlyTotalFee.calc(engagement);
 
         Map<String, Object> res = new HashMap<>();
         res.put("monthly_fee", monthlyTotalFee /* TODO 月額料金を返す */);

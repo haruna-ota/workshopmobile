@@ -1,4 +1,4 @@
-package jp.co.biglobe.workshopmobile.domain.order;
+package jp.co.biglobe.workshopmobile.domain.engagement;
 
 import jp.co.biglobe.workshopmobile.domain.fee.OptionMonthlyFee;
 import jp.co.biglobe.workshopmobile.domain.fee.PlanMonthlyFee;
@@ -8,7 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @AllArgsConstructor
-public class Order {
+public class Engagement {
     @Getter
     Plan plan;
     @Getter
