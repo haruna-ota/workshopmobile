@@ -2,6 +2,7 @@ package jp.co.biglobe.workshopmobile.domain.engagement;
 
 import jp.co.biglobe.workshopmobile.domain.fee.OptionMonthlyFee;
 import jp.co.biglobe.workshopmobile.domain.fee.PlanMonthlyFee;
+import jp.co.biglobe.workshopmobile.domain.option.EntameFreeEngagementCheckPolicy;
 import jp.co.biglobe.workshopmobile.domain.option.Option;
 import jp.co.biglobe.workshopmobile.domain.plan.Plan;
 import lombok.AllArgsConstructor;
@@ -14,14 +15,14 @@ public class Engagement {
     @Getter
     Option option;
 
-    //エンタメの申込制限
-    public boolean isEntameFreeOk(Plan plan) {
-        if (!plan.equals(Plan._1ギガ)) {
-            return true;
-        } else {
-            throw new RuntimeException("エンタメフリーオプションを申し込めないプランです");
-        }
-    }
+//    //エンタメの申込制限
+//    public boolean isEntameFreeOk(Plan plan) {
+//        if (!plan.equals(Plan._1ギガ)) {
+//            return true;
+//        } else {
+//            throw new RuntimeException("エンタメフリーオプションを申し込めないプランです");
+//        }
+//    }
 
     //プランの料金
     public PlanMonthlyFee getPlanMonthlyFee(Plan plan) {
@@ -38,7 +39,7 @@ public class Engagement {
 
     //オプションの料金
     public OptionMonthlyFee getOptionMonthlyFee(Option option) {
-        return option.equals(Option.エンタメフリー) && isEntameFreeOk(plan) ? OptionMonthlyFee.エンタメフリー : OptionMonthlyFee.なし;
+        return option.equals(Option.エンタメフリー) && EntameFreeEngagementCheckPolicy.isEntameFreeOk(plan) ? OptionMonthlyFee.エンタメフリー : OptionMonthlyFee.なし;
     }
 
 }

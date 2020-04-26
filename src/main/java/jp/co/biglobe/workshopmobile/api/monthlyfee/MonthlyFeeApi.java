@@ -1,6 +1,7 @@
 package jp.co.biglobe.workshopmobile.api.monthlyfee;
 
 import jp.co.biglobe.workshopmobile.domain.fee.OrderMonthlyTotalFee;
+import jp.co.biglobe.workshopmobile.domain.option.EntameFreeEngagementCheckPolicy;
 import jp.co.biglobe.workshopmobile.domain.option.Option;
 import jp.co.biglobe.workshopmobile.domain.engagement.Engagement;
 import jp.co.biglobe.workshopmobile.domain.plan.Plan;
@@ -38,7 +39,11 @@ public class MonthlyFeeApi {
         Option option = request.isEntame_free() ? Option.エンタメフリー : Option.オプションなし;
 
         
-        //申込
+        //契約
+        //エンタメPolicyに対して、プランをもとにエンタメ申し込み可否をきいてから契約つくる
+        if(option == Option.エンタメフリー){
+            EntameFreeEngagementCheckPolicy.isEntameFreeOk(plan);
+        }
         Engagement engagement = new Engagement(plan, option);
 
         //月額料金
