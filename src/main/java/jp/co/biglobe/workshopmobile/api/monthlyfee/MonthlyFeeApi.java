@@ -1,6 +1,7 @@
 package jp.co.biglobe.workshopmobile.api.monthlyfee;
 
-import jp.co.biglobe.workshopmobile.domain.fee.OrderMonthlyTotalFee;
+import jp.co.biglobe.workshopmobile.domain.fee.MonthlyFee;
+import jp.co.biglobe.workshopmobile.domain.fee.EngagementMonthlyTotalFee;
 import jp.co.biglobe.workshopmobile.domain.option.EntameFreeEngagementCheckPolicy;
 import jp.co.biglobe.workshopmobile.domain.option.Option;
 import jp.co.biglobe.workshopmobile.domain.engagement.Engagement;
@@ -47,10 +48,10 @@ public class MonthlyFeeApi {
         Engagement engagement = new Engagement(plan, option);
 
         //月額料金
-        int monthlyTotalFee = OrderMonthlyTotalFee.calc(engagement);
+        MonthlyFee monthlyFee = EngagementMonthlyTotalFee.calc(engagement);
 
         Map<String, Object> res = new HashMap<>();
-        res.put("monthly_fee", monthlyTotalFee /* TODO 月額料金を返す */);
+        res.put("monthly_fee", monthlyFee.getValue() /* TODO 月額料金を返す */);
         return res;
     }
 

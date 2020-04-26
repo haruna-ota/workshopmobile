@@ -5,17 +5,17 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @AllArgsConstructor
-public class OrderMonthlyTotalFee {
+public class EngagementMonthlyTotalFee {
     @Getter
     private static PlanMonthlyFee planMonthlyFee;
     @Getter
     private static OptionMonthlyFee optionMonthlyFee;
 
     //月額の合計料金を計算する
-    public static int calc(Engagement engagement) {
-        planMonthlyFee = engagement.getPlanMonthlyFee(engagement.getPlan());
-        optionMonthlyFee = engagement.getOptionMonthlyFee(engagement.getOption());
-        return planMonthlyFee.getMonthlyFee().getValue() + optionMonthlyFee.getMonthlyFee().getValue();
+    public static MonthlyFee calc(Engagement engagement) {
+        planMonthlyFee = engagement.getPlanMonthlyFee();
+        optionMonthlyFee = engagement.getOptionMonthlyFee();
+        return new MonthlyFee(planMonthlyFee.getMonthlyFee().getValue() + optionMonthlyFee.getMonthlyFee().getValue());
     }
 
 }

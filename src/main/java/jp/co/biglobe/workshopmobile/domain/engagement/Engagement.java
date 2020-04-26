@@ -15,17 +15,8 @@ public class Engagement {
     @Getter
     Option option;
 
-//    //エンタメの申込制限
-//    public boolean isEntameFreeOk(Plan plan) {
-//        if (!plan.equals(Plan._1ギガ)) {
-//            return true;
-//        } else {
-//            throw new RuntimeException("エンタメフリーオプションを申し込めないプランです");
-//        }
-//    }
-
     //プランの料金
-    public PlanMonthlyFee getPlanMonthlyFee(Plan plan) {
+    public PlanMonthlyFee getPlanMonthlyFee() {
         if (plan.equals(Plan._1ギガ)) {
             return PlanMonthlyFee._1ギガ;
         } else if (plan.equals(Plan._3ギガ)) {
@@ -38,7 +29,7 @@ public class Engagement {
     }
 
     //オプションの料金
-    public OptionMonthlyFee getOptionMonthlyFee(Option option) {
+    public OptionMonthlyFee getOptionMonthlyFee() {
         return option.equals(Option.エンタメフリー) && EntameFreeEngagementCheckPolicy.isEntameFreeOk(plan) ? OptionMonthlyFee.エンタメフリー : OptionMonthlyFee.なし;
     }
 
