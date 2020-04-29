@@ -1,0 +1,62 @@
+@startuml
+package domain{
+ package engagement{
+  class 契約{
+  Plan plan
+  Option option
+  }
+ }
+
+ package fee{
+  class 契約内容の月額料金{
+   -PlanMonthlyTotalFee planMonthlyTotalFee
+   -OptionMonthlyFee optionMonthlyFee
+   +MonthlyFee calc()
+  }
+  class 月額料金{
+   -int value
+  }
+  class プラン月額料金{
+   -MonthlyFee monthlyFee
+   +{static}PlanMonthlyFee create(Plan plan)
+  }
+  class オプション月額料金{
+   -MonthlyFee monthlyFee
+   +{static}OptionMonthlyFee create(Option option)
+  }
+ }
+
+ package Plan{
+  enum プラン{
+   1ギガ
+   3ギガ
+   30ギガ
+  }
+ }
+
+ package Option{
+  enum オプション{
+   エンタメフリー
+   オプションなし
+  }
+  class エンタメ申し込みチェックポリシー{
+   +{static}isEntameFreeOk(Plan plan)
+  }
+ }
+}
+
+
+契約-left->プラン
+契約->オプション
+
+契約内容の月額料金-up->契約
+
+エンタメ申し込みチェックポリシー->プラン
+
+プラン月額料金-up->プラン
+オプション月額料金-up->オプション
+
+プラン月額料金-down->月額料金
+オプション月額料金-down->月額料金
+
+@enduml
