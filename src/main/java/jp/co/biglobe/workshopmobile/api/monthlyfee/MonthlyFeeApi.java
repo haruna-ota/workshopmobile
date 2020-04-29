@@ -48,12 +48,10 @@ public class MonthlyFeeApi {
         Engagement engagement = new Engagement(plan, option);
 
         //月額料金
-        MonthlyFee monthlyFee = EngagementMonthlyTotalFee.calc(engagement);
+        EngagementMonthlyTotalFee engagementMonthlyTotalFee = new EngagementMonthlyTotalFee(engagement);
 
         Map<String, Object> res = new HashMap<>();
-        res.put("monthly_fee", monthlyFee.getValue() /* TODO 月額料金を返す */);
+        res.put("monthly_fee", engagementMonthlyTotalFee.calc().getValue() /* TODO 月額料金を返す */);
         return res;
     }
-
-
 }

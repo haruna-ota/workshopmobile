@@ -1,17 +1,26 @@
 package jp.co.biglobe.workshopmobile.domain.fee;
 
+import jp.co.biglobe.workshopmobile.domain.plan.Plan;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * オプション月額料金
+ * プラン月額料金
  */
 @AllArgsConstructor
-public enum PlanMonthlyFee {
-    _1ギガ(new MonthlyFee(1000)),
-    _3ギガ(new MonthlyFee(2000)),
-    _30ギガ(new MonthlyFee(6000));
-
+public class PlanMonthlyFee {
     @Getter
     private final MonthlyFee monthlyFee;
+
+    public static PlanMonthlyFee create(Plan plan){
+        if (plan.equals(Plan._1ギガ)) {
+            return new PlanMonthlyFee(new MonthlyFee(1000));
+        } else if (plan.equals(Plan._3ギガ)) {
+            return new PlanMonthlyFee(new MonthlyFee(2000));
+        } else if (plan.equals(Plan._30ギガ)) {
+            return new PlanMonthlyFee(new MonthlyFee(6000));
+        } else {
+            throw new RuntimeException("存在しないプラン料金です");
+        }
+    }
 }

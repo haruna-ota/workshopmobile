@@ -1,20 +1,21 @@
 package jp.co.biglobe.workshopmobile.domain.fee;
 
 import jp.co.biglobe.workshopmobile.domain.engagement.Engagement;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-
-@AllArgsConstructor
 public class EngagementMonthlyTotalFee {
     @Getter
-    private static PlanMonthlyFee planMonthlyFee;
+    private PlanMonthlyFee planMonthlyFee;
     @Getter
-    private static OptionMonthlyFee optionMonthlyFee;
+    private OptionMonthlyFee optionMonthlyFee;
 
+    //コンストラクタ
+    public EngagementMonthlyTotalFee(Engagement engagement) {
+        planMonthlyFee = PlanMonthlyFee.create(engagement.getPlan());
+        optionMonthlyFee = OptionMonthlyFee.create(engagement.getOption());
+
+    }
     //月額の合計料金を計算する
-    public static MonthlyFee calc(Engagement engagement) {
-        planMonthlyFee = engagement.getPlanMonthlyFee();
-        optionMonthlyFee = engagement.getOptionMonthlyFee();
+    public MonthlyFee calc() {
         return new MonthlyFee(planMonthlyFee.getMonthlyFee().getValue() + optionMonthlyFee.getMonthlyFee().getValue());
     }
 
